@@ -1,7 +1,7 @@
 #cole & antonio
 class Director:
     """This class directs the flow of the program. It will call various classes for funtionality.
-    
+
     Attributes:
         keyboard_service: for getting directional input.
         video_service: for providing video output.
@@ -9,7 +9,7 @@ class Director:
 
     def __init__(self, keyboard_service, video_service):
         """Constructs a new Director using the specified keyboard and video services. Initializing points for player. 
-        
+
         Args:
             keyboard_service: instance of keyboard service.
             video_service: instance of video service."""
@@ -26,12 +26,12 @@ class Director:
         while self._video_service.is_window_open():
             self._get_inputs(cast)
             self._do_updates(cast)
-            self.do_outputs(cast)
+            self._do_outputs(cast)
         self._video_service.close_window()
 
     def _get_inputs(self, cast):
         """Gets directional input from the keyboard and applies it to the player.
-        
+
         Args:
             cast: the cast of actors."""
         player = cast.get_first_actor("player")
@@ -40,7 +40,7 @@ class Director:
 
     def _do_updates(self, cast):
         """Updates the players position and resolves any collisions with rocks and gems.
-        
+
         Args:
             cast: the cast of actors."""
         banner = cast.get_first_actor("banners")
@@ -63,3 +63,13 @@ class Director:
                 message = rock.get_message()
                 banner.set_text(message)
                 self._points -= 200
+
+    def _do_outputs(self, cast):
+        """Draws the actors on the screen.
+
+        Args:
+            cast: the cast of actors."""
+        self._video_service.clear_buffer()
+        actors = cast.get_all_actors()
+        self._video_service.draw_actors(actors)
+        self._video_service.flush_buffer()
