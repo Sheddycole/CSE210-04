@@ -53,36 +53,41 @@ def main():
     cast.add_actor("player", player)
     
     # create the artifacts
-    with open(DATA_PATH) as file:
-        data = file.read()
-        messages = data.splitlines()
+    playing = True
+    while playing:
+        with open(DATA_PATH) as file:
+            data = file.read()
+            messages = data.splitlines()
 
-    for n in range(DEFAULT_ARTIFACTS):
-        text = random.randint(0, 1)
-        if text == 0:
-            message = messages[text]
-            text = "O"
-        elif text == 1:
-            message = messages[text]
-            text = "*"
+        for n in range(DEFAULT_ARTIFACTS):
+            text = random.randint(0, 1)
+            if text == 0:
+                message = messages[text]
+                text = "O"
+            elif text == 1:
+                message = messages[text]
+                text = "*"
 
-        x = random.randint(1, COLS - 1)
-        y = random.randint(1, ROWS - 1)
-        position = Point(x, y)
-        position = position.scale(CELL_SIZE)
+            x = random.randint(1, COLS - 1)
+            y = random.randint(1, ROWS - 1)
+            position = Point(x, y)
+            position = position.scale(CELL_SIZE)
 
-        r = random.randint(0, 255)
-        g = random.randint(0, 255)
-        b = random.randint(0, 255)
-        color = Color(r, g, b)
-        
-        artifact = Artifact()
-        artifact.set_text(text)
-        artifact.set_font_size(FONT_SIZE)
-        artifact.set_color(color)
-        artifact.set_random_position(CELL_SIZE, MAX_X, MAX_Y)
-        artifact.set_message(message)
-        cast.add_actor("artifacts", artifact)
+            r = random.randint(0, 255)
+            g = random.randint(0, 255)
+            b = random.randint(0, 255)
+            color = Color(r, g, b)
+            
+            artifact = Artifact()
+            artifact.set_text(text)
+            artifact.set_font_size(FONT_SIZE)
+            artifact.set_color(color)
+            artifact.set_random_position(CELL_SIZE, MAX_X, MAX_Y)
+            artifact.set_message(message)
+            if text == "O":
+                cast.add_actor("rocks", artifact)
+            elif text == "*":
+                cast.add_actor("gems", artifact)
     
     # start the game
     keyboard_service = KeyboardService(CELL_SIZE)

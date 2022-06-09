@@ -20,7 +20,7 @@ Greed is played according to the following rules:
 ## Interface
 
 ---
-<img src="images/greed-screenshot-01.png" width="500">
+<img src="images/greed-screenshot.png" width="500">
 
 ---
 ## Getting Started
