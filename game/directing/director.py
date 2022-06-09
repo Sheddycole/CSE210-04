@@ -54,11 +54,13 @@ class Director:
         player.move_next(max_x, max_y)
 
         for gem in gems:
+            gem.move_down()
             if player.get_position().equals(gem.get_position()):
                 message = gem.get_message()
                 banner.set_text(message)
                 self._points += 100
         for rock in rocks:
+            rock.move_down()
             if player.get_position().equals(rock.get_position()):
                 message = rock.get_message()
                 banner.set_text(message)

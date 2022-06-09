@@ -42,7 +42,7 @@ def main():
     
     # create the player
     x = int(MAX_X / 2)
-    y = int(MAX_Y / 2)
+    y = int(MAX_Y - 30)
     position = Point(x, y)
 
     player = Actor()
@@ -58,8 +58,13 @@ def main():
         messages = data.splitlines()
 
     for n in range(DEFAULT_ARTIFACTS):
-        text = chr(random.randint(33, 126))
-        message = messages[n]
+        text = random.randint(0, 1)
+        if text == 0:
+            message = messages[text]
+            text = "O"
+        elif text == 1:
+            message = messages[text]
+            text = "*"
 
         x = random.randint(1, COLS - 1)
         y = random.randint(1, ROWS - 1)
@@ -75,7 +80,7 @@ def main():
         artifact.set_text(text)
         artifact.set_font_size(FONT_SIZE)
         artifact.set_color(color)
-        artifact.set_position(position)
+        artifact.set_random_position(CELL_SIZE, MAX_X, MAX_Y)
         artifact.set_message(message)
         cast.add_actor("artifacts", artifact)
     
