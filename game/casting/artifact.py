@@ -1,6 +1,7 @@
 import random
 #from greed-game.casting.actor import Actor
 #from greed-game.shared.point import Point
+from casting import Actor
 
 class Artifact(Actor):
     """A visible, moveable thing that participates in the game. 
@@ -130,6 +131,10 @@ class Artifact(Actor):
     # Sets an initial random position
     gem1.set_random_position(cell_size, max_x, max_y)
 
+    gem1.set_value(100)
+
+    # If the gem is touched by the player, we need to set its visibility to False
+    gem1.set_visibility(False)
 
     # Another example
     gem2 = Artifact()
@@ -139,6 +144,10 @@ class Artifact(Actor):
     gem2.set_kind("Power gem")
     gem2.set_value(100)
     gem2.set_random_position(cell_size, max_x, max_y) 
+    gem2.set_kind("Power gem")
+    gem2.set_value(1000)
+    # If the gem is touched by the player, we need to set its visibility to False
+    gem2.set_visibility(False) 
 
     # How to create ROCKS
 
@@ -162,6 +171,10 @@ class Artifact(Actor):
 
     # Sets an initial random position
     rock1.set_random_position(cell_size, max_x, max_y)
+    rock1.set_value(-100)
+
+    # If the rock is touched by the player, we need to set its visibility to False
+    rock1.set_visibility(False)
 
     # Another example
     rock2 = Artifact()
@@ -171,4 +184,9 @@ class Artifact(Actor):
     rock2.set_kind("Asteroid")
     rock2.set_value(100)
     rock2.set_random_position(cell_size, max_x, max_y) 
+    rock2.set_kind("Asteroid")
+    rock2.set_value(-1000)
+    # If the gem is touched by the player, we need to set its visibility to False
+    rock2.set_visibility(False) 
+
 '''
