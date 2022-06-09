@@ -21,7 +21,7 @@ CELL_SIZE = 15
 FONT_SIZE = 15
 COLS = 60
 ROWS = 40
-CAPTION = "Robot Finds Kitten"
+CAPTION = "Greed"
 DATA_PATH = os.path.dirname(os.path.abspath(__file__)) + "/data/messages.txt"
 WHITE = Color(255, 255, 255)
 DEFAULT_ARTIFACTS = 40
@@ -40,17 +40,17 @@ def main():
     banner.set_position(Point(CELL_SIZE, 0))
     cast.add_actor("banners", banner)
     
-    # create the robot
+    # create the player
     x = int(MAX_X / 2)
     y = int(MAX_Y / 2)
     position = Point(x, y)
 
-    robot = Actor()
-    robot.set_text("#")
-    robot.set_font_size(FONT_SIZE)
-    robot.set_color(WHITE)
-    robot.set_position(position)
-    cast.add_actor("robots", robot)
+    player = Actor()
+    player.set_text("#")
+    player.set_font_size(FONT_SIZE)
+    player.set_color(WHITE)
+    player.set_position(position)
+    cast.add_actor("player", player)
     
     # create the artifacts
     with open(DATA_PATH) as file:

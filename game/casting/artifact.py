@@ -1,7 +1,6 @@
 import random
-#from greed-game.casting.actor import Actor
-#from greed-game.shared.point import Point
-from casting import Actor
+from game.casting.actor import Actor
+from game.shared.point import Point
 
 class Artifact(Actor):
     """A visible, moveable thing that participates in the game. 
@@ -13,6 +12,7 @@ class Artifact(Actor):
         _value (int): The value it worths
         _is_visible (boolean): if it is visible or not.
         _velocity_factor (int): The factor that would afect the velocity
+        _message (string): message for the artifact
     """
 
     def __init__(self):
@@ -22,6 +22,24 @@ class Artifact(Actor):
         self._value = 1
         self._is_visible = True
         self._velocity_factor = 15
+        self._message = ""
+
+
+    def get_message(self):
+        """Gets the artifact's message.
+
+        Returns:
+            string: The message.
+        """
+        return self._message
+
+    def set_message(self, message):
+        """Updates the message to the given one.
+        
+        Args:
+            message (string): The given message.
+        """
+        self._message = message
 
     def get_kind(self):
         """Gets the artifact's kind.

@@ -1,6 +1,6 @@
 #shane
 import pyray
-from greed_game.shared.point import Point
+from game.shared.point import Point
 """
 The above comment will be updated when the 'shared' folder is complete
 """
