@@ -1,3 +1,6 @@
+import random
+#from greed-game.casting.actor import Actor
+#from greed-game.shared.point import Point
 from casting import Actor
 
 class Artifact(Actor):
@@ -9,6 +12,7 @@ class Artifact(Actor):
         _kind (string): The text that represents its kind
         _value (int): The value it worths
         _is_visible (boolean): if it is visible or not.
+        _velocity_factor (int): The factor that would afect the velocity
     """
 
     def __init__(self):
@@ -17,6 +21,7 @@ class Artifact(Actor):
         self._kind = "A normal one"
         self._value = 1
         self._is_visible = True
+        self._velocity_factor = 15
 
     def get_kind(self):
         """Gets the artifact's kind.
@@ -66,6 +71,40 @@ class Artifact(Actor):
         """
         self._is_visible = is_visible
 
+    def set_velocity_factor(self, velocity_factor):
+        """Updates the velocity factor to the given one.
+        
+        Args:
+            velocity_factor (integer): The given velocity_factor.
+        """
+        self._velocity_factor = velocity_factor
+
+    def move_down(self):
+        """Moves the artifact one place down. 
+        """
+        direction = Point(0, 1)
+        velocity = direction.scale(self._velocity_factor)
+        self._velocity = velocity
+        x = self._position.get_x()
+        y = self._position.get_y() + self._velocity.get_y()
+        self._position = Point(x, y)
+
+    def set_random_position(self, cell_size, max_x, max_y):
+        """Sets a random position to an artifact.
+        
+        Args:
+            size (integer): The cell size.
+            cols (integer): The total columns for the window.
+            rows (integer): The total rows for the window.
+        """
+        cols = int(max_x / cell_size)
+        rows = int(max_y / cell_size)
+        x = random.randint(1, cols - 1)
+        y = random.randint(- rows + 1, 1)
+        position = Point(x, y)
+        position = position.scale(cell_size)
+        self._position = position
+
 '''
     # How to use this class
 
@@ -77,10 +116,21 @@ class Artifact(Actor):
     # We can use the '*' symbol to represent gems
     gem1.set_text("*")
 
+    # Setting its font size, the size of the gem will depend on this value
+    gem1.set_font_size(50)
+
+    # Setting its color
+    gem1.set_color(Color(125,125,125))
+
     # We can set the kind of the gem like this
     gem1.set_kind("Space gem")
 
     # We can set its value, this will be used to increase the score of the player
+    gem1.set_value(50)
+
+    # Sets an initial random position
+    gem1.set_random_position(cell_size, max_x, max_y)
+
     gem1.set_value(100)
 
     # If the gem is touched by the player, we need to set its visibility to False
@@ -89,6 +139,11 @@ class Artifact(Actor):
     # Another example
     gem2 = Artifact()
     gem2.set_text("*")
+    gem2.set_font_size(100)
+    gem1.set_color(Color(100,100,100))
+    gem2.set_kind("Power gem")
+    gem2.set_value(100)
+    gem2.set_random_position(cell_size, max_x, max_y) 
     gem2.set_kind("Power gem")
     gem2.set_value(1000)
     # If the gem is touched by the player, we need to set its visibility to False
@@ -102,10 +157,20 @@ class Artifact(Actor):
     # We can use the 'o' symbol to represent rocks
     rock1.set_text("o")
 
+    # Setting its font size, the size of the rock will depend on this value
+    rock1.set_font_size(50)
+
+    # Setting its color
+    rock1.set_color(Color(125,125,125))
+
     # We can set the kind of the rock like this
     rock1.set_kind("Adakite")
 
     # We can set its value, this will be used to decrease the score of the player
+    rock1.set_value(50)
+
+    # Sets an initial random position
+    rock1.set_random_position(cell_size, max_x, max_y)
     rock1.set_value(-100)
 
     # If the rock is touched by the player, we need to set its visibility to False
@@ -114,6 +179,11 @@ class Artifact(Actor):
     # Another example
     rock2 = Artifact()
     rock2.set_text("o")
+    rock2.set_font_size(100)
+    rock2.set_color(Color(100,100,100))
+    rock2.set_kind("Asteroid")
+    rock2.set_value(100)
+    rock2.set_random_position(cell_size, max_x, max_y) 
     rock2.set_kind("Asteroid")
     rock2.set_value(-1000)
     # If the gem is touched by the player, we need to set its visibility to False
