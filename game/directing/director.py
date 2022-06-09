@@ -7,7 +7,7 @@ class Director:
         video_service: for providing video output.
         points: (int) keeps track of points."""
 
-    def __init__(self, keyboard_service, video_service):
+    def __init__(self, keyboard_service, video_service, CELL_SIZE):
         """Constructs a new Director using the specified keyboard and video services. Initializing points for player. 
 
         Args:
@@ -15,7 +15,8 @@ class Director:
             video_service: instance of video service."""
         self._keyboard_service = keyboard_service
         self._video_service = video_service
-        self._points = 0
+        self._points = 10
+        self._CELL_SIZE = CELL_SIZE
 
     def start_game(self, cast):
         """Starts the game using the given cast.
@@ -59,12 +60,18 @@ class Director:
                 message = gem.get_message()
                 banner.set_text(message)
                 self._points += 100
+                gem.set_random_position(self._CELL_SIZE, max_x, max_y)
+            elif gem.get_position().get_y() >= max_y:
+                gem.set_random_position(self._CELL_SIZE, max_x, max_y)
         for rock in rocks:
             rock.move_down()
             if player.get_position().equals(rock.get_position()):
                 message = rock.get_message()
                 banner.set_text(message)
                 self._points -= 200
+                rock.set_random_position(self._CELL_SIZE, max_x, max_y)
+            elif rock.get_position().get_y() >= max_y:
+                rock.set_random_position(self._CELL_SIZE, max_x, max_y)
 
     def _do_outputs(self, cast):
         """Draws the actors on the screen.
