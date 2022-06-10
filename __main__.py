@@ -36,8 +36,16 @@ def main():
     banner.set_text("")
     banner.set_font_size(FONT_SIZE)
     banner.set_color(WHITE)
-    banner.set_position(Point(CELL_SIZE, 0))
+    banner.set_position(Point(CELL_SIZE, 2))
     cast.add_actor("banners", banner)
+
+    # create the action message
+    action = Actor()
+    action.set_text("")
+    action.set_font_size(FONT_SIZE)
+    action.set_color(WHITE)
+    action.set_position(Point(CELL_SIZE, 16))
+    cast.add_actor("action", action)
 
     # create the player
     x = int(MAX_X / 2)

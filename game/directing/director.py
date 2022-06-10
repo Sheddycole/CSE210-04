@@ -1,4 +1,6 @@
 #cole & antonio
+import time
+
 class Director:
     """This class directs the flow of the program. It will call various classes for funtionality.
 
@@ -15,7 +17,8 @@ class Director:
             video_service: instance of video service."""
         self._keyboard_service = keyboard_service
         self._video_service = video_service
-        self._points = 10
+        self._points = 100
+        self._action_message = ""
         self._CELL_SIZE = CELL_SIZE
 
     def start_game(self, cast):
@@ -28,6 +31,9 @@ class Director:
             self._get_inputs(cast)
             self._do_updates(cast)
             self._do_outputs(cast)
+            if self._points <= 0:
+                time.sleep(2)
+                self._video_service.close_window()
         self._video_service.close_window()
 
     def _get_inputs(self, cast):
@@ -45,11 +51,13 @@ class Director:
         Args:
             cast: the cast of actors."""
         banner = cast.get_first_actor("banners")
+        action = cast.get_first_actor("action")
         player = cast.get_first_actor("player")
         gems = cast.get_actors("gems")
         rocks = cast.get_actors("rocks")
 
-        banner.set_text("")
+        banner.set_text(f"Score {self._points}")
+        action.set_text(self._action_message)
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
         player.move_next(max_x, max_y)
@@ -57,8 +65,7 @@ class Director:
         for gem in gems:
             gem.move_down()
             if player.get_position().equals(gem.get_position()):
-                message = gem.get_message()
-                banner.set_text(message)
+                self._action_message = gem.get_message()
                 self._points += 100
                 gem.set_random_position(self._CELL_SIZE, max_x, max_y)
             elif gem.get_position().get_y() >= max_y:
@@ -66,12 +73,13 @@ class Director:
         for rock in rocks:
             rock.move_down()
             if player.get_position().equals(rock.get_position()):
-                message = rock.get_message()
-                banner.set_text(message)
-                self._points -= 200
+                self._action_message = rock.get_message()
+                self._points -= 75
                 rock.set_random_position(self._CELL_SIZE, max_x, max_y)
             elif rock.get_position().get_y() >= max_y:
                 rock.set_random_position(self._CELL_SIZE, max_x, max_y)
+        if self._points <= 0:
+            banner.set_text("Game Over")
 
     def _do_outputs(self, cast):
         """Draws the actors on the screen.
