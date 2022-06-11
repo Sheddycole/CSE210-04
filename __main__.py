@@ -70,7 +70,7 @@ def main():
         if text == 0:
             message = messages[text]
             text = "O"
-            value = 500
+            value = 200
         elif text == 1:
             message = messages[text]
             text = "*"
