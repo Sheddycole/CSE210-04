@@ -1,5 +1,5 @@
-from greed-game.shared.color import Color
-from greed-game.shared.point import Point
+#from greed-game.shared.color import Color
+#from greed-game.shared.point import Point
 
 
 class Actor:
@@ -65,16 +65,23 @@ class Actor:
         """
         return self._velocity
     
-    def move_next(self, max_x, max_y):
+    def move_next(self, height, max_x, max_y):
         """Moves the actor to its next position according to its velocity. Will wrap the position 
-        from one side of the screen to the other when it reaches the given maximum x and y values.
+        from one side of the screen to the other when it reaches the given maximum x value.
         
         Args:
+            height (int): The height of the subarea where to play.
             max_x (int): The maximum x value.
             max_y (int): The maximum y value.
         """
+        up_limit = max_y - height
         x = (self._position.get_x() + self._velocity.get_x()) % max_x
-        y = (self._position.get_y() + self._velocity.get_y()) % max_y
+        y = self._position.get_y() + self._velocity.get_y()
+        if y < up_limit:
+            y = self._position.get_y()
+        elif y >= max_y:
+            y = self._position.get_y()
+        
         self._position = Point(x, y)
 
     def set_color(self, color):
@@ -116,4 +123,22 @@ class Actor:
             velocity (Point): The given velocity.
         """
         self._velocity = velocity
+'''
+    # Example how to creat the player at the bottom of the window
+    max_x = 900
+    max_y = 600
+    cell_size = 20
+    font_size = 20
+    cols = int(max_x / cell_size)
+    rows = int(max_y / cell_size)
+    x = int(cols / 2)
+    y = rows - 1
+    position = Point(x, y).scale(cell_size)
+
+    player = Actor()
+    player.set_text("#")
+    player.set_font_size(font_size)
+    player.set_color(Color(255,255,255))
+    player.set_position(position)
+'''
 #manuel
