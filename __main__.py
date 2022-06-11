@@ -23,8 +23,8 @@ ROWS = 40
 CAPTION = "Greed"
 DATA_PATH = os.path.dirname(os.path.abspath(__file__)) + "/data/messages.txt"
 WHITE = Color(255, 255, 255)
-DEFAULT_ARTIFACTS = 40
-
+DEFAULT_ARTIFACTS = 80
+HEIGHT_PLAYING_AREA = 150
 
 def main():
 
@@ -66,12 +66,15 @@ def main():
 
     for n in range(DEFAULT_ARTIFACTS):
         text = random.randint(0, 1)
+        value = 0
         if text == 0:
             message = messages[text]
             text = "O"
+            value = 500
         elif text == 1:
             message = messages[text]
             text = "*"
+            value = 100
 
         x = random.randint(1, COLS - 1)
         y = random.randint(1, ROWS - 1)
@@ -89,6 +92,7 @@ def main():
         artifact.set_color(color)
         artifact.set_random_position(CELL_SIZE, MAX_X, MAX_Y)
         artifact.set_message(message)
+        artifact.set_value(value)
         if text == "O":
             cast.add_actor("rocks", artifact)
         elif text == "*":
@@ -97,7 +101,7 @@ def main():
     # start the game
     keyboard_service = KeyboardService(CELL_SIZE)
     video_service = VideoService(CAPTION, MAX_X, MAX_Y, CELL_SIZE, FRAME_RATE)
-    director = Director(keyboard_service, video_service, CELL_SIZE)
+    director = Director(keyboard_service, video_service, CELL_SIZE, HEIGHT_PLAYING_AREA)
     director.start_game(cast)
 
 
