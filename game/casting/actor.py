@@ -1,5 +1,5 @@
-#from greed-game.shared.color import Color
-#from greed-game.shared.point import Point
+from game.shared.color import Color
+from game.shared.point import Point
 
 
 class Actor:

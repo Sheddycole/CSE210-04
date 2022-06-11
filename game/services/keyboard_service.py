@@ -1,6 +1,6 @@
 #shane
 import pyray
-from greed_game.shared.point import Point
+from game.shared.point import Point
 """
 The above comment will be updated when the 'shared' folder is complete
 """
@@ -44,11 +44,11 @@ class KeyboardService:
         if pyray.is_key_down(pyray.KEY_RIGHT):
             dx = 1
 
-        if pyray.is_key_down(pyray.KEY_UP):
-            dy = -1
+        # if pyray.is_key_down(pyray.KEY_UP):
+        #     dy = -1
 
-        if pyray.is_key_down(pyray.KEY_DOWN):
-            dy = 1
+        # if pyray.is_key_down(pyray.KEY_DOWN):
+        #     dy = 1
 
         direction = Point(dx, dy)
         direction = direction.scale(self._cell_size)
